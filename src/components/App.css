@@ -1,0 +1,39 @@
+body {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+.cross-area {
+    border: 2px solid #000;
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.cross-row {
+    display: flex;
+    border-bottom: 1px solid #8f8f8f;
+}
+
+.cross-row:nth-child(5n) {
+    border-bottom: 2px solid #8f8f8f;
+}
+
+.cross-row:last-child {
+    border-bottom: none;
+}
+
+.cross-elem {
+    border-right: 1px solid #8f8f8f;
+    cursor:pointer;
+}
+
+.cross-elem:nth-child(5n) {
+    border-right: 2px solid #8f8f8f;
+}
+
+.cross-elem:last-child {
+    border-right: none;
+}
