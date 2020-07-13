@@ -3,6 +3,8 @@ import './App.css';
 
 import { Context } from '../context';
 import CrossArea from './CrossArea';
+import FormAddCross from './FormAddCross';
+import SelectColors from './SelectColors';
 
 document.oncontextmenu = function () { return false };
 
@@ -22,17 +24,13 @@ function App() {
     return arr
   }
 
-  const [size, setSize] = useState(20);
+  const size = 20
   const [color, setColor] = useState({"id":1,"color":"#000000"})
+  const [colors, setColors] = useState([{"id":1,"color":"#000000"}])
   const [button, setButton] = useState([false, false])
   const [width, setWidth] = useState(10);
   const [height, setHeight] = useState(10);
   const [cross, setCross] = useState(createArray(width, height));
-
-  const style = {
-    width: width * size + width - 1 + Math.ceil(width / 5) - 1,
-    height: height * size + height - 1 + Math.ceil(height / 5) - 1,
-  }
 
   const mouseDownEvent = (key) => {
       setCross(cross.map(row => {
@@ -74,10 +72,31 @@ function App() {
   const mouseLeaveEvent = () => {
     setButton([false, false])
   }
-  
+
+  const changeSizeCross = (width, height) => {
+    setWidth(width)
+    setHeight(height)
+    setCross(createArray(width, height))
+  }
+
+  const changeColor = (id) => {
+    setColor(colors.filter(el => el.id === id)[0])
+  }
+
+  const addColor = (newColor) => {
+    setColors([...colors, newColor])
+  }
+
+  const style = {
+    width: width * size + width - 1 + Math.ceil(width / 5) - 1,
+    height: height * size + height - 1 + Math.ceil(height / 5) - 1,
+  }
+
   return (
-    <Context.Provider value={{mouseDownEvent, mouseOverEvent, mouseUpEvent, mouseLeaveEvent}}>
+    <Context.Provider value={{mouseDownEvent, mouseOverEvent, mouseUpEvent, mouseLeaveEvent, changeSizeCross, changeColor, addColor}}>
       <div className="App">
+        <FormAddCross width={width} height={height}/>
+        <SelectColors color={color} colors={colors}/>
         <CrossArea cross={cross} size={size} style={style}/>
       </div>
     </Context.Provider>
