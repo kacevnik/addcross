@@ -4,6 +4,12 @@ body {
     user-select: none;
 }
 
+.App {
+    margin: 15px 0 0 0;
+    padding: 35px 0 0 0;
+    border-top: 1px solid #a5a0a0;
+}
+
 .cross-area {
     border: 2px solid #000;
     background: #fff;
@@ -40,7 +46,9 @@ body {
 
 .name-add label, .name-add-size label {
     color: #878787;
-    margin: 0 0 3px 0;
+    margin: 0 0 3px;
+    min-width: 90px;
+    display: inline-block;
 }
 
 .name-add input[type="text"] {
@@ -51,18 +59,23 @@ body {
     margin: 0 0 15px 0;
 }
 
+.name-add-size {
+    display: flex;
+    align-items: center;
+    margin: 0 0 15px 0;
+}
+
 .name-add-size input[type="text"] {
     padding: 5px;
-    width: 50px;
+    width: 35px;
     border-radius: 0;
     border: 1px solid #bfbfbf;
-    margin: 0 0 15px 0;
 }
 
 .name-add-minus, .name-add-plus {
     border: 1px solid #bfbfbf;
     display: inline-block;
-    padding: 3.3px 10px;
+    padding: 3.7px 10px;
     background: #e8e8e8;
     cursor: pointer;
 }
