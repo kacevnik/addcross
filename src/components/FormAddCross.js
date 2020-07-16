@@ -3,7 +3,7 @@ import { Context } from '../context';
 
 function FormAddCross({width, height}) {
 
-    const { changeSizeCross } = useContext(Context);
+    const { changeSizeCross, onAddNonogram } = useContext(Context);
 
     const [name, setName] = useState('')
     const [widthField, setWidth] = useState(width)
@@ -57,7 +57,7 @@ function FormAddCross({width, height}) {
     }
 
     return (
-        <form>
+        <form onSubmit={(event)=>onAddNonogram(event, name)}>
             <div className="name-add">
                 <label htmlFor="name_input">Название:</label>
                 <input
@@ -97,6 +97,7 @@ function FormAddCross({width, height}) {
                 />
                 <span className="name-add-plus" onClick={() => handleSize('plus', 'height')}>+</span>
             </div>
+            <button className="add-nono-but">Отправить на проверку</button>
         </form>
     );
 }

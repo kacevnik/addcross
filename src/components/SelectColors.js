@@ -4,7 +4,7 @@ import { Context } from '../context';
 
 function SelectColors({colors, color}) {
 
-    const { changeColor, addColor } = useContext(Context);
+    const { changeColor, addColor, deleteColor } = useContext(Context);
 
     const [showColorPicker, setSCPicker] = useState(false)
     const [newColor, setNewColor] = useState({hex: '#22194D'})
@@ -35,9 +35,9 @@ function SelectColors({colors, color}) {
                 title="Выбрать цвет"
                 className={clx.join(' ')}
                 key={el.id}
-                style={elStyle}
                 onClick={() => changeColor(el.id)}>
-                    <span>&times;</span>
+                    <div style={elStyle}></div>
+                    {colors.length > 1 ? <span onClick={()=>deleteColor(el.id)}>&times;</span> : null}
             </div>
         )
     })
