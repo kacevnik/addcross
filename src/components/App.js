@@ -139,6 +139,24 @@ function App() {
         }
       }
     }
+
+    const messages = {
+      ok: {mess: '<span style="color: #0ED00E;">Ваш кроссворд добавлен!<br> После проверки мы его опубликуем</span>', type: true},
+      no_user: {mess: '<span style="color: #8f2923;">Зарегистрируйтесь, или войдите<br> под своим логином и паролем</span>', type: false},
+      error_name: {mess: '<span style="color: #8f2923;">Укажите название<br> кроссворда</span>', type: false},
+      error_empty_field: {mess: '<span style="color: #8f2923;">Поле не должно быть пустым!</span>', type: false},
+      error_data: {mess: '<span style="color: #8f2923;">Ошибка загрузки</span>', type: false},
+      error_nonce: {mess: '<span style="color: #8f2923;">Ошибка загрузки</span>', type: false},
+      error_hash: {mess: '<span style="color: #8f2923;">Ошибка загрузки</span>', type: false},
+      error_size: {mess: '<span style="color: #8f2923;">Неправильно заданны размеры</span>', type: false},
+      error_more: {mess: '<span style="color: #8f2923;">Такой кроссворд<br>уже есть на сайте</span>', type: true},
+      error_color: {mess: '<span style="color: #8f2923;">Неправильно заданны цвета</span>', type: true},
+      error_str: {mess: '<span style="color: #8f2923;">Каждая строчка и столбец<br>Должны иметь<br>Заполненные клетки</span>', type: true},
+      error_insert: {mess: '<span style="color: #8f2923;">Ошибка загрузки</span>', type: true},
+    }
+
+    document.getElementById("nonogramsAnsShow").click();
+
     $.post(
       Obj.url,
       {
@@ -148,11 +166,13 @@ function App() {
         width: width,
         height: height,
         name: name,
-        colors: colors,
+        colors: btoa(JSON.stringify(colors)),
         nonce: Obj.nonce,
       },
       function(response){
         console.log(response)
+        $("#nonogramsAcsses").data('action', response);
+        $("#nonogramsAcsses p").html(messages[response].mess);
       }
     )
   }
