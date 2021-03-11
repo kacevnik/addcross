@@ -42,7 +42,7 @@ function SelectColors({colors, color}) {
         )
     })
 
-    if(colors.length < 6) {
+    if(colors.length < 9) {
         elements.push(<div key="10" className="select-color-elements add-colors" onClick={ handleClick }>+</div>)
     }
     return (
