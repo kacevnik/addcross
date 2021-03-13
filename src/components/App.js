@@ -28,7 +28,7 @@ function App() {
 
   const size = 20
   const [color, setColor] = useState({"id":1,"color":"#000000"})
-  const [colors, setColors] = useState([{"id":1,"color":"#000000"}])
+  const [colors, setColors] = useState([])
   const [button, setButton] = useState([false, false])
   const [width, setWidth] = useState(10);
   const [height, setHeight] = useState(10);
@@ -82,49 +82,39 @@ function App() {
   }
 
   const changeColor = (id) => {
-    setColor(colors.filter(el => el.id === id)[0])
+    setColor(colors.filter(el => el.id === id)[0]);
   }
 
   const addColor = (newColor) => {
-    setColors([...colors, newColor])
+    setColors([...colors, newColor]);
   }
 
   const deleteColor = (id) => {
-    if(colors.length > 2){
-      setColors(colors.filter(a=>a.id !== id).map((el,ind)=>{
-        el.id = ind + 1
-        return el
-      }))
-    } else {
-      setColors([{id: 1, color: '#000000'}])
-    }
-    const idColor = colors.filter((el) => el.id === id)
-    if(colors.length === 2){
-      setCross(cross.map(row =>{
-        row.map(el=>{
-          if(el.color) el.color = '#000000'
-          return el
-        })
-        return row
-      }))
-    } else {
-      setCross(cross.map(row =>{
-        row.map(el=>{
-          if(el.color === idColor[0].color) el.color = false
-          return el
-        })
-        return row
-      }))
-    }
+
+    setColors(colors.filter(a=>a.id !== id).map((el,ind)=>{
+      el.id = ind + 1
+      return el
+    }));
+
   }
 
   useEffect(()=>{
-    if(colors.length === 1){
-      setColor({id: 1, color: '#000000'})
+    if(colors.length > 0){
+      setColor(colors[colors.length - 1]);
+      setCross(cross.map(row =>{
+        row.map(el=>{
+          if(colors.filter(c => c.color === el.color).length === 0){
+            el.color = null;
+          }
+          return el
+        })
+        return row;
+      }))
     } else {
-      setColor(colors[0])
+      setColor({id: 1, color: '#000000'});
+      setCross(createArray(width, height))
     }
-  }, [colors])
+  }, [colors, width, height])
 
   const onAddNonogram = (e, name) => {
     e.preventDefault();

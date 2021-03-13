@@ -17,17 +17,20 @@ function SelectColors({colors, color}) {
         setSCPicker(false)
         const c = colors.filter(el=>el.color === newColor.hex)
         if(c.length === 0){
-            addColor({id: colors.length + 1, color: newColor.hex})
+            addColor({id: colors.length + 1, color: newColor.hex});
         }
     }
 
     const elements = colors.map(el => {
+
         let elStyle = {
             backgroundColor: el.color,
         }
-        let clx = ['select-color-elements']
-        if(color.id === el.id) {
-            clx.push('color-now')
+
+        let clx = ['select-color-elements'];
+
+        if(color.color === el.color){
+            clx.push('color-now');
         }
 
         return (
@@ -37,7 +40,7 @@ function SelectColors({colors, color}) {
                 key={el.id}
                 onClick={() => changeColor(el.id)}>
                     <div style={elStyle}></div>
-                    {colors.length > 1 ? <span onClick={()=>deleteColor(el.id)}>&times;</span> : null}
+                    <span onClick={()=>deleteColor(el.id)}>&times;</span>
             </div>
         )
     })
