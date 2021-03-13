@@ -119,16 +119,20 @@ function App() {
   const onAddNonogram = (e, name) => {
     e.preventDefault();
     let string = '';
+
+    const CurentColors = colors.length > 1 ? colors : [{id: 1, color: '#000000'}];
     for (let i = 0; i < height; i++) {
       for (let k = 0; k < width; k++) {
-        if (cross[i][k].color === false) {
+        if (!cross[i][k].color) {
           string += '0';
         } else {
-          let id = colors.filter(el => el.color === cross[i][k].color)
-          string += (id[0].id + '');
+          let id = colors.length > 1 ? colors.filter(el => el.color === cross[i][k].color)[0].id : 1;
+          string += (id + '');
         }
       }
     }
+
+    console.log(string);
 
     const messages = {
       ok: {mess: '<span style="color: #0ED00E;">Ваш кроссворд добавлен!<br> После проверки мы его опубликуем</span>', type: true},
@@ -156,7 +160,7 @@ function App() {
         width: width,
         height: height,
         name: name,
-        colors: btoa(JSON.stringify(colors)),
+        colors: btoa(JSON.stringify(CurentColors)),
         nonce: Obj.nonce,
       },
       function(response){
